@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Python script with GUI at startup
+After=graphical.target
+RequiresMountsFor=/media/iain/FRAMEUSB
+
+[Service]
+User=iain
+Environment=DISPLAY=:0
+Environment=PATH=/usr/local/bin:/usr/bin:/bin:/home/iain/py311/bin
+ExecStart=/home/iain/runFrame.sh
+WorkingDirectory=/home/iain
+Restart=on-failure
+
+[Install]
+WantedBy=graphical.target
