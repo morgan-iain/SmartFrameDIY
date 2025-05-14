@@ -14,10 +14,47 @@ log_file = "/home/iain/runFrame_log.txt"
 # File list
 file_list = "/home/iain/file_list.txt"
 
+# Directory for image directory
+# source = "/media/iain/FRAMEUSB"
+source1 = "/media/iain/FRAMEUSB1" # alternate due to mounting issue
+
 # Global list for image paths to be accessed and updated by multiple functions/threads
 image_paths = []
 # Global list locker
 list_lock = threading.Lock()
+
+# def check_source():
+#     """
+#     Check to see if destination directory is empty. If it is, check if alt directory contains files, if it does, return True. Else false.
+
+#     Args:
+#         None
+
+#     Returns:
+#         bool
+#     """
+#     if len(os.listdir(source)) == 0:
+#         # Logging
+#         current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+#         log = open(log_file, "a")
+#         log.write(f"[{current_time}] (file_transfer.py): {source} is empty. \n")
+#         log.close()
+#         if len(os.listdir(source1)) == 0:
+#             # Logging
+#             current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+#             log = open(log_file, "a")
+#             log.write(f"[{current_time}] (file_transfer.py): Neither {source} nor {source1} are valid. \n")
+#             log.close()
+#             return False
+#         else:
+#             # Logging
+#             current_time = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+#             log = open(log_file, "a")
+#             log.write(f"[{current_time}] (file_transfer.py): Now using {source1} as destination directory. \n")
+#             log.close()
+#             return True
+#     else:
+#         return False
 
 def is_valid_image(file_name, directory):
     """
@@ -371,7 +408,11 @@ def slideshow(screen_width=1280, screen_height=800, display_time=8000, transitio
 
 if __name__ == "__main__":
     # Directory to monitor for new images added to /media/iain/FRAMEUSB from /home/iain/pi samba server via file_transfer.py
-    directory_to_watch = "/media/iain/FRAMEUSB"
+    # if not check_source():
+    #     directory_to_watch = source
+    # else:
+    #     directory_to_watch = source1
+    directory_to_watch = source1
 
     listy = open(file_list, "w")
     listy.close()
